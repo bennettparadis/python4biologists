@@ -1,0 +1,94 @@
+from __future__ import division
+
+
+####2.1 Calculating AT content
+
+my_dna1 = "ACTGATCGATTACGTATAGTATTTGCTATCATACATATATATCGATGCGTTCAT"
+length = len(my_dna1)
+
+##creates variables
+a_count = my_dna1.count('A')
+t_count = my_dna1.count('T')
+
+##new variable created via a calculation
+at_content = (a_count + t_count) / length
+
+print("2.1")
+##prints the value--the function str() turns a number into a string so that it can be printed
+print("AT content is " + str(at_content))
+
+
+####2.2 Print the complementary strand of DNA
+
+##make individual replacements, using prior step as the next basis for each replacement
+##use lower case letters, otherwise using T early on, it will be replaced by A's in step two
+##leaving only A's and C's in the final product 
+rep1 = my_dna1.replace('A','t')
+rep2 = rep1.replace('T','a')
+rep3 = rep2.replace('C','g')
+rep4 = rep3.replace('G', 'c')
+
+print("2.2")
+print("after all replacements : " +str((rep4)))
+print("Final complementary DNA : " + str(rep4.upper()))
+
+
+####2.3 Restriction fragment lengths
+
+##What is the size of the two fragments remaining when a DNA sequence is digested by restriction enzyme?
+
+##positions in Python start from 0
+##create the variable for the first strand which cuts at GAATTC
+frag1_length = my_dna1.find('GAATTC')+1
+
+##second variable is a function of subtracting the first step from the total length of the DNA strand
+frag2_length = len(my_dna1) - frag1_length
+
+print("2.3")
+print("length of fragment one is " + str(frag1_length))
+print("length of fragment two is " + str(frag2_length))
+
+##if a DNA sequence doesn't contain the specified site, the return output will be a fragment length of 0
+
+
+####2.4.1 Splicing out introns
+
+my_dna2 = "ATCGATCGATCGATCGACTGACTAGTCATAGCTATGCATGTAGCTACTCGATCGATCGATCGATCGATCGATCGATCGATCGATCATGCTATCATCGATCGATATCGATGCATCGACTACTAT"
+
+##exon 1 runs from start to 63rd character; exon 2 runs from 91st to the end. How can you print just the coding regions
+##of the DNA sequence? (exons = coding regions; introns = spliced out)
+
+##for positions in strings: 1) positions are offset by 1 because Python starts at 0
+##                          2) positions are inclusive at the start
+##                          3) positions are exclusive at the stop--so go one more spot 
+##                          4) can go all the way to the end of a string w/o knowing total length by writing [41:]
+exon1 = my_dna2[0:64]
+exon2 = my_dna2[91:]
+
+exons= (exon1 + exon2)
+
+print("2.4.1")
+print("Coded sequence : " + exons)
+
+
+####2.4.2 Splicing out introns
+
+##What percentage of the DNA sequence is coding?
+
+##create variables 
+coded = len(exons)
+total_len = len(my_dna2)
+
+print("2.4.2")
+print(100* (coded / total_len))
+
+
+####2.4.3 Splicing out introns
+print("2.4.3")
+
+##Print the original sequence w/ coded regions in uppercase & non-coded regions in lower case
+exon1 = my_dna2[0:64]
+exon2 = my_dna2[91:]
+intron = my_dna2[64:91]
+
+print(exon1 + intron.lower() + exon2)
